@@ -10,11 +10,20 @@ import numpy as p
 from sklearn.preprocessing import normalize
 model = load_model('../local/data_face/keras-facenet/model/facenet_keras.h5')
 
+
+
 data_train = pd.read_csv('../local/data_face/train.csv')
 img_names = data_train.image.tolist()
 img_arrays = utils.read_images(img_names)
 labels = data_train.label.tolist()
-model.summary()
+
+def new_model(model):
+    input1 = model.inputs
+
+    out = model.ouputs
+    labels = Dense(1000)(out)
+
+    return Model(input1,labels)
 face_vectors = model.predict(img_arrays)
 # from sklearn import svm
 # from sklearn.model_selection import cross_val_score
@@ -25,6 +34,8 @@ face_vectors = model.predict(img_arrays)
 test_dir = '../local/data_face/test'
 test_names = os.listdir(test_dir)
 test_imgs = utils.read_images(test_names,mode='test')
+new_model = new_model(model)
+print(new_model.summary())
 test_vector = model.predict(test_imgs)
 results = []
 face_vectors = normalize(face_vectors,axis=1,norm='l2')

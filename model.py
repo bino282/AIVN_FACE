@@ -47,6 +47,7 @@ def vgg_face(weights_path=None):
     fc6 = Conv2D(4096,(7,7), activation='relu')(pool5)
     fc6_drop = Dropout(0.5)(fc6)
     fc7 = Conv2D(4096,(1,1) , activation='relu', name='fc7')(fc6_drop)
+    fc_flat = Flatten()(fc7)
     fc7_drop = Dropout(0.5)(fc7)
     out = Conv2D(2622, (1, 1))(fc7_drop)
     out = Flatten()(out)
@@ -56,7 +57,7 @@ def vgg_face(weights_path=None):
     if weights_path:
         model.load_weights(weights_path)
     
-    out2 = Dense(1000, activation='softmax', name='fc8')(fc7_drop)
+    out2 = Dense(1000, activation='softmax', name='fc8')(fc_flat)
     model2 = Model(input=img, output=out2)
     return model2
 

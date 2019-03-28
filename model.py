@@ -29,6 +29,7 @@ test_vector = model.predict(test_imgs)
 results = []
 face_vectors = normalize(face_vectors,axis=1,norm='l2')
 for v in test_vector:
+    v = v.reshape(1,-1)
     v= normalize(v,axis=1,norm='l2')
     prob = np.dot(v,face_vectors.T).flatten()
     ids_set = set()

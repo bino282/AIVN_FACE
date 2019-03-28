@@ -17,7 +17,7 @@ model.compile(loss='sparse_categorical_crossentropy',optimizer='adam',metrics=['
 face_vectors = model.predict(img_arrays)
 from sklearn import svm
 from sklearn.model_selection import cross_val_score
-clf = svm.SVC(kernel='linear', C = 1.0)
+clf = svm.SVC(kernel='rbf', C = 1.0)
 scores = cross_val_score(clf, face_vectors, labels, cv=5)
 print(scores)
 print("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))

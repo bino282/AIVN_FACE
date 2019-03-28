@@ -12,12 +12,14 @@ def vgg_face(weights_path=None):
     conv1_1 = Conv2D(64, (3, 3), activation='relu', name='conv1_1')(pad1_1)
     pad1_2 = ZeroPadding2D(padding=(1, 1))(conv1_1)
     conv1_2 = Conv2D(64, (3, 3), activation='relu', name='conv1_2')(pad1_2)
+    print(conv1_2)
     pool1 = MaxPooling2D((2, 2), strides=(2, 2))(conv1_2)
 
     pad2_1 = ZeroPadding2D((1, 1))(pool1)
     conv2_1 = Conv2D(128, (3, 3), activation='relu', name='conv2_1')(pad2_1)
     pad2_2 = ZeroPadding2D((1, 1))(conv2_1)
     conv2_2 = Conv2D(128, (3, 3), activation='relu', name='conv2_2')(pad2_2)
+    print(conv1_1)
     pool2 = MaxPooling2D((2, 2), strides=(2, 2))(conv2_2)
 
     pad3_1 = ZeroPadding2D((1, 1))(pool2)

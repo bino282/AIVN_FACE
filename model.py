@@ -45,11 +45,12 @@ def vgg_face(weights_path=None):
     pool5 = MaxPooling2D((2, 2), strides=(2, 2))(conv5_3)
 
     flat = Flatten()(pool5)
-    fc6 = Dense(4096, activation='relu', name='fc6')(flat)
+    fc6 = Conv2D(4096,(7,7), activation='relu')(flat)
     fc6_drop = Dropout(0.5)(fc6)
-    fc7 = Dense(4096, activation='relu', name='fc7')(fc6_drop)
+    fc7 = Conv2D(4096,(1,1) , activation='relu', name='fc7')(fc6_drop)
     fc7_drop = Dropout(0.5)(fc7)
-    out = Dense(2622, activation='softmax', name='fc8')(fc7_drop)
+    out = Conv2D(2622, (1, 1))(fc7_drop)
+    out = Flatten()(out)
 
     model = Model(input=img, output=out)
 

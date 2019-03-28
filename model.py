@@ -14,7 +14,7 @@ img_arrays = utils.read_images(img_names)
 labels = data_train.label.tolist()
 model.summary()
 model.compile(loss='sparse_categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
-face_vectors = utils.l2_normalize(model.predict(img_arrays))
+face_vectors = model.predict(img_arrays)
 from sklearn import svm
 from sklearn.model_selection import cross_val_score
 clf = svm.SVC(kernel='linear', C = 1.0)

@@ -18,16 +18,17 @@ face_vectors = model.predict(img_arrays)
 from sklearn import svm
 from sklearn.model_selection import cross_val_score
 clf = svm.SVC(kernel='linear', C = 1.0,probability=True)
-scores = cross_val_score(clf, face_vectors, labels, cv=5)
+clf.fit(face_vectors,labels)
 
 
 test_dir = '../local/data_face/test'
 test_names = os.listdir(test_dir)
-test_imgs = utils.read_images(test_names)
+test_imgs = utils.read_images(test_names,mode='test')
 test_vector = model.predict(test_imgs)
 results = []
 for v in test_vector:
     prob= clf.predict_proba(v)
+    print(prob)
     ids = prob.argsort()[::-1][0:5]
     results.append(ids)
 print(results)

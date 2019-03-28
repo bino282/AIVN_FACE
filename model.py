@@ -44,9 +44,9 @@ def vgg_face(weights_path=None):
     conv5_3 = Conv2D(512, (3, 3), activation='relu', name='conv5_3')(pad5_3)
     pool5 = MaxPooling2D((2, 2), strides=(2, 2))(conv5_3)
 
-    fc6 = Conv2D(4096,(7,7), activation='relu')(pool5)
-    fc6_drop = Dropout(0.5)(fc6)
-    fc7 = Conv2D(4096,(1,1) , activation='relu', name='fc7')(fc6_drop)
+    conv6_3 = Conv2D(4096,(7,7), activation='relu')(pool5)
+    conv6_3_drop = Dropout(0.5)(conv6_3)
+    fc7 = Conv2D(4096,(1,1) , activation='relu', name='fc7')(conv6_3_drop)
     fc_flat = Flatten()(fc7)
     fc7_drop = Dropout(0.5)(fc7)
     out = Conv2D(2622, (1, 1))(fc7_drop)

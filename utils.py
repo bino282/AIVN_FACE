@@ -4,6 +4,6 @@ def read_images(names,mode='train'):
     imgs= []
     for name in names:
         im = cv2.imread('../local/data_face/train/'+name)
-        print(im.shape)
+        im = cv2.resize(im, (224, 224,3)) 
         imgs.append(im)
     return np.asarray(imgs)

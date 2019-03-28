@@ -36,7 +36,7 @@ for v in test_vector:
     ids = prob.argsort()[::-1]
     for _id in ids:
         if (len(ids_set) < 5):
-            ids_set.add(_id)
+            ids_set.add(labels[_id])
         else:
             break
     results.append(list(ids_set))

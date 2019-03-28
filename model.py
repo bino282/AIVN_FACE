@@ -60,7 +60,7 @@ def vgg_face(weights_path=None):
     model2 = Model(input=img, output=out2)
     return model2
 
-model = vgg_face('./weights/gg-face-keras-fc.h5')
+model = vgg_face('../local/data_face/weights/gg-face-keras-fc.h5')
 data_train = pd.read_csv('train.csv')
 img_names = data_train.image.tolist()
 img_arrays = utils.read_images(img_names)
@@ -69,4 +69,4 @@ model.summary()
 model.compile(loss='sparse_categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
 model.fit(img_arrays,labels,batch_size=64,epochs=50,
           validation_split=0.1)
-model.save('./source/model/model_cnn_face.h5')
+model.save('./model/model_cnn_face.h5')

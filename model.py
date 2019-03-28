@@ -47,7 +47,7 @@ def vgg_face(weights_path=None):
     conv6_3 = Conv2D(4096,(7,7), activation='relu')(pool5)
     conv6_3_drop = Dropout(0.5)(conv6_3)
     fc7 = Conv2D(4096,(1,1) , activation='relu', name='fc7')(conv6_3_drop)
-    fc_flat = Flatten()(fc7)
+    fc_flat = Flatten()(conv6_3_drop)
     fc7_drop = Dropout(0.5)(fc7)
     out = Conv2D(2622, (1, 1))(fc7_drop)
     out = Flatten()(out)

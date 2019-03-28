@@ -60,7 +60,8 @@ def vgg_face(weights_path=None):
     model2 = Model(input=img, output=out2)
     return model2
 
-model = vgg_face('../local/data_face/weights/vgg-face-keras.h5')
+model = load_model('../local/data_face/weights/vgg-face-keras.h5')
+# model = vgg_face('../local/data_face/weights/vgg-face-keras.h5')
 data_train = pd.read_csv('train.csv')
 img_names = data_train.image.tolist()
 img_arrays = utils.read_images(img_names)

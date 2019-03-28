@@ -19,8 +19,7 @@ from sklearn import svm
 from sklearn.model_selection import cross_val_score
 clf = svm.SVC(kernel='linear', C = 1.0,probability=True)
 scores = cross_val_score(clf, face_vectors, labels, cv=5)
-print(scores)
-print("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
+
 
 test_dir = '../local/data_face/test'
 test_names = os.listdir(test_dir)

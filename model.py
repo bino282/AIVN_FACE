@@ -27,10 +27,15 @@ test_imgs = utils.read_images(test_names,mode='test')
 test_vector = model.predict(test_imgs)
 results = []
 for v in test_vector:
-    prob= clf.predict_proba(v)
+    prob= clf.predict_proba([v])[0]
     print(prob)
     ids = prob.argsort()[::-1][0:5]
     results.append(ids)
 print(results)
+fw = open('submission.csv','w')
+for i in range(len(test_names)):
+    fw.write(test_names[i] + ','+" ".join([str(l) for l in results[i]]))
+    fw.write('\n')
+fw.close()
 
 

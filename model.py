@@ -6,7 +6,7 @@ import pandas as pd
 import utils
 from keras.models import load_model
 def vgg_face(weights_path=None):
-    img = Input(shape=(3, 224, 224))
+    img = Input(shape=(224, 224,3))
 
     pad1_1 = ZeroPadding2D(padding=(1, 1))(img)
     conv1_1 = Conv2D(64, (3, 3), activation='relu', name='conv1_1')(pad1_1)

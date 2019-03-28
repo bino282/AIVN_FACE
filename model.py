@@ -61,8 +61,9 @@ def vgg_face(weights_path=None):
     model2 = Model(input=img, output=out2)
     return model2
 
-# model = load_model('../local/data_face/weights/vgg-face-keras.h5')
-model = vgg_face('../local/data_face/weights/vgg_face_weights.h5')
+model = load_model('../local/data_face/keras-facenet/model/facenet_keras.h5')
+
+#model = vgg_face('../local/data_face/weights/vgg_face_weights.h5')
 data_train = pd.read_csv('../local/data_face/train.csv')
 img_names = data_train.image.tolist()
 img_arrays = utils.read_images(img_names)
@@ -70,6 +71,8 @@ print(img_arrays.shape)
 labels = data_train.label.tolist()
 model.summary()
 model.compile(loss='sparse_categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
+face_vectors = model.predict(img_arrays)
+print(face_vectors)
 model.fit(img_arrays,labels,batch_size=16,epochs=50,
           validation_split=0.1)
 model.save('./model/model_cnn_face.h5')

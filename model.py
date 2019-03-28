@@ -70,6 +70,6 @@ print(img_arrays.shape)
 labels = data_train.label.tolist()
 model.summary()
 model.compile(loss='sparse_categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
-model.fit(img_arrays,labels,batch_size=32,epochs=50,
+model.fit(img_arrays,labels,batch_size=16,epochs=50,
           validation_split=0.1)
 model.save('./model/model_cnn_face.h5')

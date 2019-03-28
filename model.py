@@ -20,7 +20,7 @@ labels = data_train.label.tolist()
 def new_model(model):
     input1 = model.inputs
 
-    out = model.ouputs
+    out = model.outputs
     labels = Dense(1000)(out)
 
     return Model(input1,labels)

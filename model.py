@@ -28,7 +28,6 @@ test_vector = model.predict(test_imgs)
 results = []
 for v in test_vector:
     prob= clf.predict_proba([v])[0]
-    print(prob)
     ids = prob.argsort()[::-1][0:5]
     results.append(ids)
 print(results)

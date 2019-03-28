@@ -34,9 +34,9 @@ for v in test_vector:
     prob = np.dot(v,face_vectors.T).flatten()
     ids_set = set()
     ids = prob.argsort()[::-1]
-    for _id in ids:
+    for j in  range (len(ids)):
         if (len(ids_set) < 5):
-            ids_set.add(labels[_id])
+            ids_set.add(labels[ids[j]])
         else:
             break
     results.append(list(ids_set))

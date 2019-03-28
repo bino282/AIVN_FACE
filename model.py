@@ -17,6 +17,7 @@ def vgg_face(weights_path=None):
 
     pad2_1 = ZeroPadding2D((1, 1))(pool1)
     conv2_1 = Conv2D(128, (3, 3), activation='relu', name='conv2_1')(pad2_1)
+    print(conv2_1)
     pad2_2 = ZeroPadding2D((1, 1))(conv2_1)
     conv2_2 = Conv2D(128, (3, 3), activation='relu', name='conv2_2')(pad2_2)
     print(conv2_2)

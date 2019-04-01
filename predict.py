@@ -46,6 +46,7 @@ with tf.Graph().as_default():
 		results = []
 		face_vectors = normalize(face_vectors,axis=1,norm='l2')
 		for v in test_vector:
+			v= np.asarray(v)
 			v = v.reshape(1,-1)
 			v= normalize(v,axis=1,norm='l2')
 			prob = np.dot(v,face_vectors.T).flatten()

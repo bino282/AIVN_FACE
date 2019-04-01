@@ -10,13 +10,14 @@ from sklearn.preprocessing import normalize
 model_dir = "../local/pre_model"
 
 def predict(face_imgs,sess):
-	img_feature = sess.run([embeddings],feed_dict={images_placeholder: face_imgs,phase_train_placeholder: False })[0]
+	img_feature = sess.run([embeddings],feed_dict={images_placeholder: face_imgs,phase_train_placeholder: False })[0].tolist()
 	return img_feature
 
 data_train = pd.read_csv('../local/data_face/train.csv')
 img_names = data_train.image.tolist()
 img_arrays = read_images(img_names)
 labels = data_train.label.tolist()
+batch_size = 128
 with tf.Graph().as_default():
 	with tf.Session(config=tf.ConfigProto(log_device_placement=False)) as sess:
 		facenet.load_model(model_dir)
@@ -24,8 +25,13 @@ with tf.Graph().as_default():
 		embeddings = tf.get_default_graph().get_tensor_by_name("embeddings:0")
 		phase_train_placeholder = tf.get_default_graph().get_tensor_by_name("phase_train:0")
 		print ("load model succees !")
+		face_vectors = []
+		for i in range(img_arrays.shape[0]//batch_size):
+			face_v = predict(img_arrays[i*batch_size:(i+1)*batch_size],sess)
+			face_vectors.extend(face_v)
 
-		face_vectors = predict(img_arrays,sess)
+
+		face_vectors = np.asarray(face_vectors)
 
 		test_dir = '../local/data_face/test'
 		test_names = os.listdir(test_dir)

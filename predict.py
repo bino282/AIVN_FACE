@@ -27,7 +27,7 @@ with tf.Graph().as_default():
 		phase_train_placeholder = tf.get_default_graph().get_tensor_by_name("phase_train:0")
 		print ("load model succees !")
 		face_vectors = []
-		for i in range(img_arrays.shape[0]//batch_size):
+		for i in range(img_arrays.shape[0]//batch_size+1):
 			face_v = predict(img_arrays[i*batch_size:(i+1)*batch_size],sess)[0].tolist()
 			face_vectors.extend(face_v)
 
@@ -39,7 +39,7 @@ with tf.Graph().as_default():
 		test_names = os.listdir(test_dir)
 		test_imgs = read_images(test_names,mode='test')
 		test_vector = []
-		for i in range(test_imgs.shape[0]//batch_size):
+		for i in range(test_imgs.shape[0]//batch_size+1):
 			face_v = predict(test_imgs[i*batch_size:(i+1)*batch_size],sess)[0].tolist()
 			test_vector.extend(face_v)
 		print(len(test_vector))

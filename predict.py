@@ -11,6 +11,7 @@ model_dir = "../local/pre_model"
 
 def predict(face_imgs,sess):
 	img_feature = sess.run([embeddings],feed_dict={images_placeholder: face_imgs,phase_train_placeholder: False })[0].tolist()
+	print(img_feature)
 	return img_feature
 
 data_train = pd.read_csv('../local/data_face/train.csv')
@@ -27,7 +28,6 @@ with tf.Graph().as_default():
 		print ("load model succees !")
 		face_vectors = []
 		for i in range(img_arrays.shape[0]//batch_size):
-			print("batch {} ".format(i))
 			face_v = predict(img_arrays[i*batch_size:(i+1)*batch_size],sess)
 			face_vectors.extend(face_v)
 
@@ -38,6 +38,7 @@ with tf.Graph().as_default():
 		test_names = os.listdir(test_dir)
 		test_imgs = read_images(test_names,mode='test')
 		test_vector = predict(test_imgs,sess)
+		print('get vector finish')
 		results = []
 		face_vectors = normalize(face_vectors,axis=1,norm='l2')
 		for v in test_vector:

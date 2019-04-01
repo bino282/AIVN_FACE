@@ -16,6 +16,7 @@ def predict(face_imgs,sess):
 data_train = pd.read_csv('../local/data_face/train.csv')
 img_names = data_train.image.tolist()
 img_arrays = read_images(img_names)
+print(img_arrays.shape)
 labels = data_train.label.tolist()
 batch_size = 128
 with tf.Graph().as_default():
@@ -28,6 +29,7 @@ with tf.Graph().as_default():
 		face_vectors = []
 		for i in range(img_arrays.shape[0]//batch_size):
 			face_v = predict(img_arrays[i*batch_size:(i+1)*batch_size],sess)
+			print(len(face_v))
 			face_vectors.extend(face_v)
 
 

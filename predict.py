@@ -10,7 +10,7 @@ from sklearn.preprocessing import normalize
 model_dir = "../local/pre_model"
 
 def predict(face_imgs,sess):
-	img_feature = sess.run([embeddings],feed_dict={images_placeholder: face_imgs,phase_train_placeholder: False }).tolist()
+	img_feature = sess.run([embeddings],feed_dict={images_placeholder: face_imgs,phase_train_placeholder: False })
 	return img_feature
 
 data_train = pd.read_csv('../local/data_face/train.csv')

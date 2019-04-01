@@ -31,7 +31,7 @@ def new_model(model):
 
 new_model = new_model(model)
 print(new_model.summary())
-model.compile(loss='sparse_categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
+new_model.compile(loss='sparse_categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
 new_model.fit(img_arrays,labels,epochs=50,validation_split=0.1,verbose=1)
 test_dir = '../local/data_face/test'
 test_names = os.listdir(test_dir)

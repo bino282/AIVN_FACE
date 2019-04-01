@@ -39,7 +39,10 @@ with tf.Graph().as_default():
 		test_dir = '../local/data_face/test'
 		test_names = os.listdir(test_dir)
 		test_imgs = read_images(test_names,mode='test')
-		test_vector = predict(test_imgs,sess)
+		test_vector = []
+		for i in range(test_imgs.shape[0]//batch_size):
+			face_v = predict(test_imgs[i*batch_size:(i+1)*batch_size],sess).tolist()
+			test_vector.extend(face_v)
 		print('get vector finish')
 		results = []
 		face_vectors = normalize(face_vectors,axis=1,norm='l2')

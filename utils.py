@@ -16,6 +16,6 @@ def prewhiten(x):
 	return y 
 def norm_image(img):
 	crop = cv2.resize(img, (160, 160), interpolation=cv2.INTER_CUBIC )
-	data=crop.reshape(-1,160,160,3)
+	data= crop.reshape(160,160,3)
 	data = prewhiten(data)
 	return data 

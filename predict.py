@@ -28,7 +28,7 @@ with tf.Graph().as_default():
 		print ("load model succees !")
 		face_vectors = []
 		for i in range(img_arrays.shape[0]//batch_size):
-			face_v = predict(img_arrays[i*batch_size:(i+1)*batch_size],sess).tolist()
+			face_v = predict(img_arrays[i*batch_size:(i+1)*batch_size],sess)[0].tolist()
 			print(face_v)
 			face_vectors.extend(face_v)
 
@@ -41,7 +41,7 @@ with tf.Graph().as_default():
 		test_imgs = read_images(test_names,mode='test')
 		test_vector = []
 		for i in range(test_imgs.shape[0]//batch_size):
-			face_v = predict(test_imgs[i*batch_size:(i+1)*batch_size],sess).tolist()
+			face_v = predict(test_imgs[i*batch_size:(i+1)*batch_size],sess)[0].tolist()
 			test_vector.extend(face_v)
 		print('get vector finish')
 		results = []

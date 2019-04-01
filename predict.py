@@ -27,6 +27,7 @@ with tf.Graph().as_default():
 		print ("load model succees !")
 		face_vectors = []
 		for i in range(img_arrays.shape[0]//batch_size):
+			print("batch {} ".format(i))
 			face_v = predict(img_arrays[i*batch_size:(i+1)*batch_size],sess)
 			face_vectors.extend(face_v)
 

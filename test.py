@@ -1,7 +1,6 @@
-import pandas as pd
-import cv2
-data_train = pd.read_csv('train.csv')
-print(data_train.image[0])
-img = cv2.imread('./train/'+data_train.image[0])
-cv2.imshow('Face',img)
-cv2.waitKey()
+from skpy import Skype
+sk = Skype("nha28021995", "Bino@1995") # connect to Skype
+
+ch = sk.contacts.contact["skype_username_where_we_want_send_message"].chat 
+
+ch.sendMsg("some message") 

@@ -4,26 +4,18 @@ def read_images(names,mode='train'):
     imgs= []
     for name in names:
         im = cv2.imread('../local/data_face/{}/'.format(mode)+name)
-        im = cv2.resize(im, (160, 160)) 
+        im = norm_image(im)
         imgs.append(im)
-    return prewhiten(np.asarray(imgs))
+    return np.asarray(imgs)
 
 def prewhiten(x):
-    if x.ndim == 4:
-        axis = (1, 2, 3)
-        size = x[0].size
-    elif x.ndim == 3:
-        axis = (0, 1, 2)
-        size = x.size
-    else:
-        raise ValueError('Dimension should be 3 or 4')
-
-    mean = np.mean(x, axis=axis, keepdims=True)
-    std = np.std(x, axis=axis, keepdims=True)
-    std_adj = np.maximum(std, 1.0/np.sqrt(size))
-    y = (x - mean) / std_adj
-    return y
-
-def l2_normalize(x, axis=-1, epsilon=1e-10):
-    output = x / np.sqrt(np.maximum(np.sum(np.square(x), axis=axis, keepdims=True), epsilon))
-    return output
+	mean = np.mean(x)
+	std = np.std(x)
+	std_adj = np.maximum(std, 1.0/np.sqrt(x.size))
+	y = np.multiply(np.subtract(x, mean), 1/std_adj)
+	return y 
+def norm_image(img):
+	crop = cv2.resize(img, (160, 160), interpolation=cv2.INTER_CUBIC )
+	data=crop.reshape(-1,160,160,3)
+	data = prewhiten(data)
+	return data 

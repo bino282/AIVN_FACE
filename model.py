@@ -24,18 +24,17 @@ def new_model(model):
     labels = Dense(1000)(out)
 
     return Model(input1,labels)
-face_vectors = model.predict(img_arrays)
+#face_vectors = model.predict(img_arrays)
 # from sklearn import svm
 # from sklearn.model_selection import cross_val_score
 # clf = svm.SVC(kernel='linear', C = 1.0,probability=True)
 # clf.fit(face_vectors,labels)
 
-
+new_model = new_model(model)
+print(new_model.summary())
 test_dir = '../local/data_face/test'
 test_names = os.listdir(test_dir)
 test_imgs = utils.read_images(test_names,mode='test')
-new_model = new_model(model)
-print(new_model.summary())
 test_vector = model.predict(test_imgs)
 results = []
 face_vectors = normalize(face_vectors,axis=1,norm='l2')

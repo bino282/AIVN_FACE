@@ -42,6 +42,8 @@ with tf.Graph().as_default():
 		for i in range(test_imgs.shape[0]//batch_size):
 			face_v = predict(test_imgs[i*batch_size:(i+1)*batch_size],sess)[0].tolist()
 			test_vector.extend(face_v)
+		print(len(test_vector))
+		print(len(test_names))
 		print('get vector finish')
 		results = []
 		face_vectors = normalize(face_vectors,axis=1,norm='l2')

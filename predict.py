@@ -29,7 +29,7 @@ with tf.Graph().as_default():
 		face_vectors = []
 		for i in range(img_arrays.shape[0]//batch_size):
 			face_v = predict(img_arrays[i*batch_size:(i+1)*batch_size],sess)
-			print(len(face_v))
+			print(face_v)
 			face_vectors.extend(face_v)
 
 

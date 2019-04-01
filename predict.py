@@ -60,7 +60,6 @@ with tf.Graph().as_default():
 				else:
 					break
 			results.append(list(ids_set))
-		print(results)
 		fw = open('submission.csv','w')
 		fw.write('image,label')
 		fw.write('\n')

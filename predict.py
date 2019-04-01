@@ -10,8 +10,7 @@ from sklearn.preprocessing import normalize
 model_dir = "../local/pre_model"
 
 def predict(face_imgs,sess):
-	img_feature = sess.run([embeddings],feed_dict={images_placeholder: face_imgs,phase_train_placeholder: False })[0].tolist()
-	print(img_feature)
+	img_feature = sess.run([embeddings],feed_dict={images_placeholder: face_imgs,phase_train_placeholder: False }).tolist()
 	return img_feature
 
 data_train = pd.read_csv('../local/data_face/train.csv')
@@ -33,6 +32,7 @@ with tf.Graph().as_default():
 
 
 		face_vectors = np.asarray(face_vectors)
+		print(face_vectors.shape)
 
 		test_dir = '../local/data_face/test'
 		test_names = os.listdir(test_dir)

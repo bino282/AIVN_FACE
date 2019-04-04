@@ -44,7 +44,7 @@ img_arrays = read_images(img_names)
 labels = data_train.label.tolist()
 
 anchor,pos,neg = generate_triplets(img_arrays,np.asarray(labels),len(labels))
-print anchor
+print (anchor)
 
 my_model = my_model(model_facenet)
 print(my_model.summary())

@@ -7,7 +7,11 @@ from utils import *
 from keras.models import load_model
 import os
 import numpy as p
+from keras import backend as K
 from sklearn.preprocessing import normalize
+def triplet_loss(y_true, y_pred):
+    margin = K.constant(1)
+    return K.mean(K.maximum(K.constant(0), K.square(y_pred[:,0,0]) - 0.5*(K.square(y_pred[:,1,0])+K.square(y_pred[:,2,0])) + margin))
 model = load_model('../local/data_face/keras-facenet/model/facenet_keras.h5')
 
 
@@ -17,7 +21,7 @@ img_names = data_train.image.tolist()
 img_arrays = read_images(img_names)
 labels = data_train.label.tolist()
 
-anchor,pos,neg = generate_triplets(img_arrays,np.asarray(labels),10*len(labels))
+anchor,pos,neg = generate_triplets(img_arrays,np.asarray(labels),len(labels))
 print(model.summary())
 model.compile(loss='sparse_categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
 model.fit(img_arrays,labels,epochs=500,validation_split=0.1,verbose=1)

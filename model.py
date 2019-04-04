@@ -10,6 +10,7 @@ import numpy as p
 import keras.layers as kl
 from keras import backend as K
 from sklearn.preprocessing import normalize
+from keras import optimizers
 def triplet_loss(y_true, y_pred):
     margin = K.constant(1)
     return K.mean(K.maximum(K.constant(0), K.square(y_pred[:,0,0]) - 0.5*(K.square(y_pred[:,1,0])+K.square(y_pred[:,2,0])) + margin))
@@ -43,11 +44,12 @@ img_names = data_train.image.tolist()
 img_arrays = read_images(img_names)
 labels = data_train.label.tolist()
 
-anchor,pos,neg = generate_triplets(img_arrays,np.asarray(labels),len(labels))
+anchor,pos,neg = generate_triplets(img_arrays,np.asarray(labels),5*len(labels))
 y_train = np.random.randint(2, size=(1,3,anchor.shape[0])).T
 my_model = my_model(model_facenet)
 print(my_model.summary())
-my_model.compile(loss=triplet_loss,optimizer='adam',metrics=['accuracy'])
+optimize = optimizers.Adam(lr=0.00001)
+my_model.compile(loss=triplet_loss,optimizer=optimize)
 my_model.fit([anchor,pos,neg],y_train,epochs=500,validation_split=0.1,verbose=1)
 test_dir = '../local/data_face/test'
 test_names = os.listdir(test_dir)

@@ -20,6 +20,7 @@ model_facenet = load_model('../local/data_face/keras-facenet/model/facenet_keras
 
 def my_model(old_model):
     input_anchor = old_model.inputs
+    print(input_anchor)
     input_positive = old_model.inputs
     input_negative = old_model.inputs
     anchor_rep = old_model(input_anchor)

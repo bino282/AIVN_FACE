@@ -3,7 +3,7 @@ from keras.layers import Input, Conv2D, ZeroPadding2D, MaxPooling2D, Flatten, De
 from PIL import Image
 import numpy as np
 import pandas as pd
-import utils
+from utils import *
 from keras.models import load_model
 import os
 import numpy as p
@@ -14,28 +14,16 @@ model = load_model('../local/data_face/keras-facenet/model/facenet_keras.h5')
 
 data_train = pd.read_csv('../local/data_face/train.csv')
 img_names = data_train.image.tolist()
-img_arrays = utils.read_images(img_names)
+img_arrays = read_images(img_names)
 labels = data_train.label.tolist()
 
-def new_model(model):
-    input1 = model.inputs
-
-    out = model(input1)
-    labels = Dense(1000)(out)
-
-    return Model(input1,labels)
-# from sklearn import svm
-# from sklearn.model_selection import cross_val_score
-# clf = svm.SVC(kernel='linear', C = 1.0,probability=True)
-# clf.fit(face_vectors,labels)
-
-new_model = new_model(model)
-print(new_model.summary())
-new_model.compile(loss='sparse_categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
-new_model.fit(img_arrays,labels,epochs=500,validation_split=0.1,verbose=1)
+anchor,pos,neg = generate_triplets(img_arrays,np.asarray(labels),10*len(labels))
+print(model.summary())
+model.compile(loss='sparse_categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
+model.fit(img_arrays,labels,epochs=500,validation_split=0.1,verbose=1)
 test_dir = '../local/data_face/test'
 test_names = os.listdir(test_dir)
-test_imgs = utils.read_images(test_names,mode='test')
+test_imgs = read_images(test_names,mode='test')
 face_vectors = model.predict(img_arrays)
 test_vector = model.predict(test_imgs)
 results = []

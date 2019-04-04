@@ -44,7 +44,7 @@ img_arrays = read_images(img_names)
 labels = data_train.label.tolist()
 
 anchor,pos,neg = generate_triplets(img_arrays,np.asarray(labels),len(labels))
-y_train = np.random.randint(2, size=(1,2,anchor.shape[0])).T
+y_train = np.random.randint(2, size=(1,3,anchor.shape[0])).T
 my_model = my_model(model_facenet)
 print(my_model.summary())
 my_model.compile(loss=triplet_loss,optimizer='adam',metrics=['accuracy'])

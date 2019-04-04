@@ -44,12 +44,11 @@ img_arrays = read_images(img_names)
 labels = data_train.label.tolist()
 
 anchor,pos,neg = generate_triplets(img_arrays,np.asarray(labels),len(labels))
-print (anchor)
 
 my_model = my_model(model_facenet)
 print(my_model.summary())
 my_model.compile(loss=triplet_loss,optimizer='adam',metrics=['accuracy'])
-my_model.fit([anchor,pos,neg],labels,epochs=500,validation_split=0.1,verbose=1)
+my_model.fit([anchor,pos,neg],epochs=500,validation_split=0.1,verbose=1)
 test_dir = '../local/data_face/test'
 test_names = os.listdir(test_dir)
 test_imgs = read_images(test_names,mode='test')

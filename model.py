@@ -22,7 +22,6 @@ def my_model(old_model):
     input_anchor = kl.Input(shape=(160, 160, 3))
     input_positive = kl.Input(shape=(160, 160, 3))
     input_negative = kl.Input(shape=(160, 160, 3))
-    print(input_anchor)
     anchor_rep = old_model(input_anchor)
     pos_rep = old_model(input_positive)
     neg_rep = old_model(input_negative)
@@ -45,6 +44,7 @@ img_arrays = read_images(img_names)
 labels = data_train.label.tolist()
 
 anchor,pos,neg = generate_triplets(img_arrays,np.asarray(labels),len(labels))
+print anchor
 
 my_model = my_model(model_facenet)
 print(my_model.summary())

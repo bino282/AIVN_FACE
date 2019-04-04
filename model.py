@@ -19,9 +19,9 @@ def euclidean_distance(vects):
 model_facenet = load_model('../local/data_face/keras-facenet/model/facenet_keras.h5')
 
 def my_model(old_model):
-    input_anchor = kl.Input(shape=(None, 160, 160, 3))
-    input_positive = kl.Input(shape=(None, 160, 160, 3))
-    input_negative = kl.Input(shape=(None, 160, 160, 3))
+    input_anchor = kl.Input(shape=(160, 160, 3))
+    input_positive = kl.Input(shape=(160, 160, 3))
+    input_negative = kl.Input(shape=(160, 160, 3))
     print(input_anchor)
     anchor_rep = old_model(input_anchor)
     pos_rep = old_model(input_positive)

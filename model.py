@@ -22,6 +22,7 @@ def my_model(old_model):
     input_anchor = kl.Input(shape=(None, 160, 160, 3))
     input_positive = kl.Input(shape=(None, 160, 160, 3))
     input_negative = kl.Input(shape=(None, 160, 160, 3))
+    print(input_anchor)
     anchor_rep = old_model(input_anchor)
     pos_rep = old_model(input_positive)
     neg_rep = old_model(input_negative)

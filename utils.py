@@ -28,9 +28,8 @@ def generate_triplets(data,labels,n_triplets):
 	for x in range(n_triplets):
 		idx = np.random.randint(0, len(labels))
 		idx_matches = np.where(labels == labels[idx])[0]
-		print(idx_matches)
 		idx_no_matches = np.where(labels != labels[idx])[0]
-		idx_a, idx_p = np.random.choice(idx_matches, 2, replace=False)
+		idx_a, idx_p = np.random.choice(idx_matches, 2, replace=True)
 		idx_n = np.random.choice(idx_no_matches, 1)[0]
 		triplets.append([idx_a, idx_p, idx_n])
 	for e in triplets:

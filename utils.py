@@ -36,5 +36,5 @@ def generate_triplets(data,labels,n_triplets):
 		anchor.append(data[e[0]])
 		pos_sample.append(data[e[1]])
 		neg_sample.append(data[e[2]])
-	return anchor,pos_sample,neg_sample
+	return np.asarray(anchor),np.asarray(pos_sample),np.asarray(neg_sample)
 
